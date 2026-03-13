@@ -10,6 +10,7 @@ function Header() {
         <Link to="/shop">Shop</Link>
         <Link to="/login">Login</Link>
         <Link to="/signup">Signup</Link>
+        <Link to="/admin">Admin</Link>
       </nav>
     </header>
   );

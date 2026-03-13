@@ -1,17 +1,47 @@
-function Signup() {
-  return (
-    <div className="form-container">
+import { useState } from "react"
+import axios from "axios"
 
-      <h2>Signup</h2>
+function Signup(){
 
-      <input type="text" placeholder="Name" />
-      <input type="email" placeholder="Email" />
-      <input type="password" placeholder="Password" />
+const [name,setName] = useState("")
+const [email,setEmail] = useState("")
+const [password,setPassword] = useState("")
 
-      <button>Create Account</button>
+const signup = async ()=>{
 
-    </div>
-  );
+await axios.post(
+"http://localhost:5000/api/auth/signup",
+{name,email,password}
+)
+
+alert("Account created")
+
 }
 
-export default Signup;
+return(
+
+<div className="form-container">
+
+<h2>Signup</h2>
+
+<input placeholder="Name" onChange={(e)=>setName(e.target.value)} />
+
+<input placeholder="Email" onChange={(e)=>setEmail(e.target.value)} />
+
+<input
+type="password"
+placeholder="Password"
+onChange={(e)=>setPassword(e.target.value)}
+/>
+
+<button onClick={signup}>
+Create Account
+</button>
+
+</div>
+
+)
+
+}
+
+export default Signup

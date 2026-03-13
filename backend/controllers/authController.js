@@ -1,21 +1,23 @@
-const User = require("../models/User");
+const jwt = require("jsonwebtoken");
 
-exports.register = async(req,res)=>{
+exports.adminLogin = (req,res)=>{
 
- const user = new User(req.body);
+const {email,password} = req.body;
 
- await user.save();
+if(email==="admin@techyprint.com" && password==="123456"){
 
- res.json(user);
+const token = jwt.sign(
+{role:"admin"},
+"secretkey",
+{expiresIn:"1d"}
+);
+
+res.json({token});
+
+}else{
+
+res.status(401).json({message:"Invalid credentials"});
 
 }
 
-exports.login = async(req,res)=>{
-
- const user = await User.findOne({email:req.body.email});
-
- if(!user) return res.json("User not found");
-
- res.json(user);
-
-}
+};
